@@ -149,8 +149,6 @@ let players = [{
 // let _attack: number | null;
 // let _defense: number | null;
 // let _player : Player;
-// let attackers: string[] = [];
-// let defenders: string[] = [];
 
 // let i = 0;
 // while(i<10){
