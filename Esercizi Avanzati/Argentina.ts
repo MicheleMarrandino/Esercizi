@@ -1,5 +1,7 @@
+//INPUT CONTROL
 let flag= false;
 
+//UTILITY FUNCTIONS USING SORT() METHOD.
 function sort(x){
   x.sort((a, b) => {
     if (a["attack"] === b["attack"]) {
@@ -30,6 +32,48 @@ function printNames(a, field){
     else x += ", ";
   }
   return field + ": " + x;
+}
+
+//UTILITY FUNCTIONS *W/OUT* USING BUILT-IN METHOD.
+function swap(arr, i, j){
+  let temp = arr[i];
+  arr[i]= arr[j];
+  arr[j] = temp;
+  return arr;
+}
+
+function sorter(arr){
+  for(let i=0; i<9; i++){
+    for(let j=0; j<9; j++){
+      if(arr[j].attack < arr[j+1].attack){
+        swap(arr, j, j+1);
+     } else if(arr[j].attack === arr[j+1].attack && arr[j].defense > arr[j+1].defense){
+      swap(arr, j, j+1);
+     } else if (arr[j].defense === arr[j+1].defense && arr[j].name > arr[j+1].name){
+       swap(arr, j, j+1);
+     }
+    }
+  }
+  return arr;
+}
+
+function finalSort(arr){
+  const len = arr.length;
+  for(let i = 0; i<len -1; i++){
+    for(let j = 0; j<len -1; j++){
+      if(arr[j].name > arr[j+1].name)
+      swap(arr, j, j+1);
+    }
+  }
+  return arr;
+}
+
+function getTeams(arr){
+  let attaccanti = arr.splice(0,5);
+  let difensori = arr;
+  attaccanti = finalSort(attaccanti);
+  difensori = finalSort(difensori);
+  return [attaccanti, difensori];
 }
 
 //----------------------------------------Hardcoded Input://-------------------------------------------------
@@ -126,11 +170,17 @@ let players = [{
 //     i++;
 //     }
 // }
-//------------------------------------------------------------------------------------------
-
-
+//--------------------------OPTIMIZED BUILT-IN WAY-------------------------------------
 if(!flag){
-    let x = sort(players);
-    console.log(printNames(x[0], "Attaccanti"));
-    console.log(printNames(x[1], "Difensori"));
-}
+      let x = sort(players);
+      console.log(printNames(x[0], "Attaccanti"));
+      console.log(printNames(x[1], "Difensori"));
+  }
+
+//--------------------------W/OUT BUILT-IN SORT------------------------------------------
+// if(!flag){
+//   players = sorter(players);
+//   let x = getTeams(players);
+//   console.log(printNames(x[0], "Attaccanti"));
+//   console.log(printNames(x[1], "Difensori"));
+// }
